@@ -26,6 +26,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "activesupport"
   spec.add_dependency "redcarpet"
+  spec.add_dependency "bundler"
 
   spec.add_development_dependency "rake", "~> 13.0"
   spec.add_development_dependency "rspec"
