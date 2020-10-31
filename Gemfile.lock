@@ -3,6 +3,7 @@ PATH
   specs:
     govuk_markdown (0.1.0)
       activesupport
+      bundler
       redcarpet
 
 GEM
