@@ -1,3 +1,4 @@
+require "active_support/all"
 require "redcarpet"
 
 require "govuk_markdown/version"

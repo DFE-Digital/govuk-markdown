@@ -1,5 +1,3 @@
-require "active_support/all"
-
 module GovukMarkdown
   class Renderer < ::Redcarpet::Render::HTML
     def header(text, header_level)
