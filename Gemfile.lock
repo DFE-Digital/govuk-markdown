@@ -79,6 +79,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  bundler
   govuk_markdown!
   rake (~> 12.0)
   rspec
