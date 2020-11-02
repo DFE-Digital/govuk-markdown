@@ -11,3 +11,7 @@ task :generate_example do
   File.write("example/example.html", ERB.new(File.read("example/example_layout.html.erb")).result(binding))
   sh "open example/example.html"
 end
+
+task :gem_version do
+  puts GovukMarkdown::VERSION
+end

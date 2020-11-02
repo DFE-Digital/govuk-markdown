@@ -13,7 +13,7 @@ jobs:
     - env:
         GEM_HOST_API_KEY: ${{ secrets.RUBYGEMS_API_KEY }}
       run: |
-        VERSION=$(ruby -e "puts eval(File.read('govuk_markdown.gemspec')).version")
+        VERSION=$(rake gem_version)
         GEM_VERSION=$(gem list --exact --remote govuk_markdown)
         if [ "${GEM_VERSION}" != "govuk_markdown (${VERSION})" ]; then
           gem build govuk_markdown.gemspec

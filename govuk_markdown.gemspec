@@ -1,4 +1,4 @@
-require "govuk_markdown/version"
+require_relative "lib/govuk_markdown/version"
 
 Gem::Specification.new do |spec|
   spec.name          = "govuk_markdown"
