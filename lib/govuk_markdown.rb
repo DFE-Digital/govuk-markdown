@@ -7,6 +7,6 @@ require_relative "./govuk_markdown/renderer"
 module GovukMarkdown
   def self.render(markdown)
     renderer = GovukMarkdown::Renderer.new(with_toc_data: true)
-    Redcarpet::Markdown.new(renderer, tables: true).render(markdown).strip
+    Redcarpet::Markdown.new(renderer, tables: true, no_intra_emphasis: true).render(markdown).strip
   end
 end

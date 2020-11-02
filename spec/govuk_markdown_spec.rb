@@ -71,6 +71,10 @@ RSpec.describe GovukMarkdown do
     expect(render("abc")).to eq('<p class="govuk-body-m">abc</p>')
   end
 
+  it "renders code without emphasis" do
+    expect(render("I am a snake_cased_word")).to include("snake_cased_word")
+  end
+
   it "renders unordered lists with GOV.UK classes" do
     input = <<~MARKDOWN
       * abc def
