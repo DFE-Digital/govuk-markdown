@@ -12,6 +12,7 @@ task :generate_example do
   sh "open example/example.html"
 end
 
+desc "Print the current version of the gem"
 task :gem_version do
   require_relative "lib/govuk_markdown/version"
 
