@@ -15,4 +15,6 @@ jobs:
         GEM_HOST_API_KEY: ${{ secrets.RUBYGEMS_API_KEY }}
       name: Push a new gem version to Rubygems
       run: |
-        echo "It works"
+        echo "It works" > something.txt
+        git commit -am "OK, and a commit works"
+        git push
