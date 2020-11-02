@@ -8,9 +8,6 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - uses: ruby/setup-ruby@v1
-
-      # Update to >= v3.0.5
-      # https://gitlab.com/gitlab-org/gitlab-qa/-/issues/431
     - run: gem update --system
 
     - env:
