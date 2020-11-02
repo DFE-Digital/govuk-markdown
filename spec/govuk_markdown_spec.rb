@@ -1,6 +1,48 @@
 require "spec_helper"
 
 RSpec.describe GovukMarkdown do
+  it "renders tables" do
+    markdown =
+      <<~MD
+        | First name   | Last name    | DOB        |
+        | ------------ | ------------ | ---------- |
+        | John         | Smith        | 01-04-1970 |
+        | Alison       | Brown        | 02-05-1970 |
+        | Adam         | Sample       | 03-06-1970 |
+      MD
+
+    expected_html = <<~HTML
+      <table class='govuk-table'>
+        <thead class='govuk-table__head'>
+          <tr class='govuk-table__row'>
+            <td class='govuk-table__cell'>First name</td>
+            <td class='govuk-table__cell'>Last name</td>
+            <td class='govuk-table__cell'>DOB</td>
+          </tr>
+        </thead>
+        <tbody class='govuk-table__body'>
+          <tr class='govuk-table__row'>
+            <td class='govuk-table__cell'>John</td>
+            <td class='govuk-table__cell'>Smith</td>
+            <td class='govuk-table__cell'>01-04-1970</td>
+          </tr>
+          <tr class='govuk-table__row'>
+            <td class='govuk-table__cell'>Alison</td>
+            <td class='govuk-table__cell'>Brown</td>
+            <td class='govuk-table__cell'>02-05-1970</td>
+          </tr>
+          <tr class='govuk-table__row'>
+            <td class='govuk-table__cell'>Adam</td>
+            <td class='govuk-table__cell'>Sample</td>
+            <td class='govuk-table__cell'>03-06-1970</td>
+          </tr>
+        </tbody>
+      </table>
+    HTML
+
+    expect_equal_ignoring_ws(render(markdown), expected_html)
+  end
+
   it "renders H1s with ids and GOV.UK classes" do
     expect(render("# My title")).to eq('<h1 id="my-title" class="govuk-heading-xl">My title</h1>')
   end
@@ -77,5 +119,9 @@ RSpec.describe GovukMarkdown do
 
   def render(content)
     GovukMarkdown.render(content)
+  end
+
+  def expect_equal_ignoring_ws(first, second)
+    expect(first.lines.map(&:strip).join("")).to eq(second.lines.map(&:strip).join(""))
   end
 end
