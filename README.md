@@ -44,6 +44,10 @@ You can regenerate the example HTML file from Markdown using:
 bundle exec rake generate_example
 ```
 
+## Release a new version
+
+Update the version in [lib/govuk_markdown/version.rb](lib/govuk_markdown/version.rb) and merge to main. This will automatically release a new version using GitHub actions.
+
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/DfE-digital/govuk_markdown.
