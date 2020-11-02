@@ -1,6 +1,8 @@
+require "govuk_markdown/version"
+
 Gem::Specification.new do |spec|
   spec.name          = "govuk_markdown"
-  spec.version       = "0.1.0"
+  spec.version       = GovukMarkdown::VERSION
   spec.authors       = ["Tijmen Brommet"]
   spec.email         = ["tijmen@gmail.com"]
 
