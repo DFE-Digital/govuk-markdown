@@ -15,14 +15,4 @@ jobs:
         GEM_HOST_API_KEY: ${{ secrets.RUBYGEMS_API_KEY }}
       name: Push a new gem version to Rubygems
       run: |
-        CURRENT_VERSION=$(rake gem_version)
-        PUBLISHED_GEM_VERSION=$(gem list --exact --remote govuk_markdown)
-
-        if [ "${PUBLISHED_GEM_VERSION}" != "govuk_markdown (${CURRENT_VERSION})" ]; then
-          gem build govuk_markdown.gemspec
-          gem push "govuk_markdown-${CURRENT_VERSION}.gem"
-        fi
-        if ! git ls-remote --tags --exit-code origin v${CURRENT_VERSION}; then
-          git tag v${CURRENT_VERSION}
-          git push --tags
-        fi
+        echo "It works"
