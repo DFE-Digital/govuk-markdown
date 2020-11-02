@@ -1,8 +1,8 @@
 require "active_support/all"
 require "redcarpet"
 
-require "govuk_markdown/version"
-require "govuk_markdown/renderer"
+require_relative "./govuk_markdown/version"
+require_relative "./govuk_markdown/renderer"
 
 module GovukMarkdown
   def self.render(markdown)
