@@ -16,6 +16,7 @@ jobs:
       name: Push a new gem version to Rubygems
       run: |
         echo "It works" > something.txt
+        git add .
         git config --global user.email "you@example.com"
         git config --global user.name "Your Name"
         git commit -am "OK, and a commit works"
