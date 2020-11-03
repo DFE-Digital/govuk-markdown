@@ -67,11 +67,6 @@ module GovukMarkdown
       end
     end
 
-    def link(link, title, content)
-      title_attribute = title.present? ? " title=\"#{title}\"" : ""
-      %(<a href="#{link}" class="govuk-link"#{title_attribute}>#{content}</a>)
-    end
-
     def hrule
       <<~HTML
         <hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible">

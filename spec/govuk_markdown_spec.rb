@@ -105,6 +105,18 @@ RSpec.describe GovukMarkdown do
     expect(render(input)).to eq(expected.strip)
   end
 
+  it "renders a URL in angle brackets with GOV.UK classes" do
+    expect(render("<https://www.gov.uk/help>")).to eq(
+      '<p class="govuk-body-m"><a href="https://www.gov.uk/help" class="govuk-link">https://www.gov.uk/help</a></p>',
+    )
+  end
+
+  it "renders an email address in angle brackets with GOV.UK classes" do
+    expect(render("<noreply@gov.uk>")).to eq(
+      '<p class="govuk-body-m"><a href="mailto:noreply@gov.uk" class="govuk-link">noreply@gov.uk</a></p>',
+    )
+  end
+
   it "renders links without titles with GOV.UK classes" do
     expect(render("[GOV.UK homepage](https://www.gov.uk)")).to eq(
       '<p class="govuk-body-m"><a href="https://www.gov.uk" class="govuk-link">GOV.UK homepage</a></p>',
@@ -113,7 +125,7 @@ RSpec.describe GovukMarkdown do
 
   it "renders links with titles with GOV.UK classes" do
     expect(render('[GOV.UK homepage](https://www.gov.uk "My title")')).to eq(
-      '<p class="govuk-body-m"><a href="https://www.gov.uk" class="govuk-link" title="My title">GOV.UK homepage</a></p>',
+      '<p class="govuk-body-m"><a href="https://www.gov.uk" title="My title" class="govuk-link">GOV.UK homepage</a></p>',
     )
   end
 

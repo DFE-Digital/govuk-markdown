@@ -1,5 +1,13 @@
 # A h1 title header
 
+## Links
+
+This is [linked text](https://gov.uk).
+
+This is [linked text with a title](https://gov.uk "The best place to find government services and information").
+
+This is a linked URL <https://www.gov.uk/help> and this is a linked email address <noreply@gov.uk>.
+
 ## Lists
 
 This is a list:
