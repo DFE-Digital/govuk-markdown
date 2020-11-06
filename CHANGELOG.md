@@ -1,3 +1,7 @@
+## 0.4.0
+
+This release ensures all links get the `govuk-link` class, no matter which Markdown link syntax is used (#7).
+
 ## 0.3.0
 
 This release adds support for tables (#3) and avoids the notorious emphasised `snake_cased_words` issue (#4).
