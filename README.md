@@ -36,17 +36,18 @@ Will output:
 
 After checking out the repo, run `bin/setup` to install dependencies. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+To install this gem onto your local machine, run `bundle exec rake install`.
 
-You can regenerate the example HTML file from Markdown using:
-
-```sh
-bundle exec rake generate_example
-```
+You can regenerate the example HTML file from Markdown using `bundle exec rake generate_example`.
 
 ## Release a new version
 
-Update the version in [lib/govuk_markdown/version.rb](lib/govuk_markdown/version.rb) and merge to main. This will automatically release a new version using GitHub actions.
+1. Update the version in [lib/govuk_markdown/version.rb](lib/govuk_markdown/version.rb)
+2. Run `bundle install`
+3. Update [CHANGELOG.md](CHANGELOG.md)
+4. Create a pull request
+
+When changes are merged into the `main` branch, a new version will be released using a GitHub action.
 
 ## Contributing
 
