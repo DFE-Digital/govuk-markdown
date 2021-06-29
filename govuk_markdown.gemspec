@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.summary       = "Convert Markdown into GOV.UK styled HTML"
   spec.description   = "Convert Markdown into GOV.UK styled HTML"
   spec.homepage      = "https://github.com/DFE-Digital/govuk_markdown"
-  spec.required_ruby_version = Gem::Requirement.new(">= 2.3.0")
+  spec.required_ruby_version = Gem::Requirement.new(">= 2.7.0")
 
   spec.metadata["homepage_uri"] = spec.homepage
   spec.metadata["source_code_uri"] = spec.homepage
