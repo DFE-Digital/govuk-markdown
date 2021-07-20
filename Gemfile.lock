@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    govuk_markdown (0.4.0)
+    govuk_markdown (1.0.0)
       activesupport
       redcarpet
 
