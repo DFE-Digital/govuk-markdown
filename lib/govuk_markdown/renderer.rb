@@ -50,13 +50,14 @@ module GovukMarkdown
     end
 
     def list(contents, list_type)
-      if list_type == :unordered
+      case list_type
+      when :unordered
         <<~HTML
           <ul class="govuk-list govuk-list--bullet">
             #{contents}
           </ul>
         HTML
-      elsif list_type == :ordered
+      when :ordered
         <<~HTML
           <ol class="govuk-list govuk-list--number">
             #{contents}
