@@ -1,5 +1,10 @@
 module GovukMarkdown
   class Renderer < ::Redcarpet::Render::HTML
+    def initialize(govuk_options, options = {})
+      @headings_start_with = govuk_options[:headings_start_with]
+      super options
+    end
+
     def table(header, body)
       <<~HTML
         <table class='govuk-table'>
@@ -30,16 +35,17 @@ module GovukMarkdown
     end
 
     def header(text, header_level)
-      heading_size = case header_level
-                     when 1 then "xl"
-                     when 2 then "l"
-                     when 3 then "m"
-                     else "s" end
+      valid_header_sizes = %w[xl l m s].freeze
+
+      start_size = valid_header_sizes.include?(@headings_start_with) ? @headings_start_with : "xl"
+
+      start_size_index = valid_header_sizes.find_index(start_size)
+
+      header_size = valid_header_sizes[start_size_index + header_level - 1] || "s"
 
       id_attribute = @options[:with_toc_data] ? " id=\"#{text.parameterize}\"" : ""
-
       <<~HTML
-        <h#{header_level}#{id_attribute} class="govuk-heading-#{heading_size}">#{text}</h#{header_level}>
+        <h#{header_level}#{id_attribute} class="govuk-heading-#{header_size}">#{text}</h#{header_level}>
       HTML
     end
 
