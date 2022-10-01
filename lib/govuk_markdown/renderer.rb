@@ -79,5 +79,9 @@ module GovukMarkdown
         <hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible">
       HTML
     end
+
+    def preprocess(document)
+      Preprocessor.new(document).inject_inset_text
+    end
   end
 end
