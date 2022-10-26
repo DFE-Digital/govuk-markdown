@@ -1,28 +1,30 @@
+name: Publish gem
 on:
-  - push
-
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Tag
+        required: true
 jobs:
   build:
+    name: Publish to RubyGems.org
     runs-on: ubuntu-latest
-    if: ${{ github.ref == 'refs/heads/main' }}
     steps:
     - uses: actions/checkout@v2
-    - uses: ruby/setup-ruby@v1
+      with:
+        ref: ${{ github.event.inputs.tag }}
+
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: '2.7.6'
+
     - name: Install dependencies
-      run: gem update --system
-
-    - env:
-        GEM_HOST_API_KEY: ${{ secrets.RUBYGEMS_API_KEY }}
-      name: Push a new gem version to Rubygems
       run: |
-        CURRENT_VERSION=$(rake gem_version)
-        PUBLISHED_GEM_VERSION=$(gem list --exact --remote govuk_markdown)
+        gem install bundler
+        bundle install --jobs 4 --retry 3
 
-        if [ "${PUBLISHED_GEM_VERSION}" != "govuk_markdown (${CURRENT_VERSION})" ]; then
-          gem build govuk_markdown.gemspec
-          gem push "govuk_markdown-${CURRENT_VERSION}.gem"
-        fi
-        if ! git ls-remote --tags --exit-code origin v${CURRENT_VERSION}; then
-          git tag v${CURRENT_VERSION}
-          git push --tags
-        fi
+    - name: Publish gem
+      uses: dawidd6/action-publish-gem@v1
+      with: 
+        api_key: ${{ secrets.RUBYGEMS_API_KEY }}
