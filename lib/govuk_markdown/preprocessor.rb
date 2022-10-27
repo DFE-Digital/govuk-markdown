@@ -21,7 +21,7 @@ module GovukMarkdown
     def build_regexp(tag_name, pre_tag: "{", post_tag: "}", closing: "/")
       before  = pre_tag +           tag_name + post_tag
       after   = pre_tag + closing + tag_name + post_tag
-      pattern = [Regexp.quote(before), "(.*)", Regexp.quote(after)].join
+      pattern = [Regexp.quote(before), "(.*?)", Regexp.quote(after)].join
 
       Regexp.compile(pattern, Regexp::EXTENDED | Regexp::MULTILINE)
     end
