@@ -2,6 +2,7 @@ require "active_support/all"
 require "redcarpet"
 
 require_relative "./govuk_markdown/version"
+require_relative "./govuk_markdown/preprocessor"
 require_relative "./govuk_markdown/renderer"
 
 module GovukMarkdown
