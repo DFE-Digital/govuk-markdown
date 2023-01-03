@@ -1,19 +1,38 @@
 module GovukMarkdown
   class Preprocessor
-    attr_reader :document
+    attr_reader :output
 
     def initialize(document)
-      @document = document
+      @output = document
     end
 
     def inject_inset_text
-      document.gsub(build_regexp("inset-text")) do
+      output.gsub!(build_regexp("inset-text")) do
         <<~HTML
           <div class="govuk-inset-text">
             #{Regexp.last_match(1)}
           </div>
         HTML
       end
+      self
+    end
+
+    def inject_details
+      output.gsub!(build_regexp("details")) do
+        <<~HTML
+          <details class="govuk-details" data-module="govuk-details">
+            <summary class="govuk-details__summary">
+              <span class="govuk-details__summary-text">
+              #{Regexp.last_match(1).split('.', 2).first}
+              </span>
+            </summary>
+            <div class="govuk-details__text">
+              #{Regexp.last_match(1).split('.', 2).last}
+            </div>
+          </details>
+        HTML
+      end
+      self
     end
 
   private
