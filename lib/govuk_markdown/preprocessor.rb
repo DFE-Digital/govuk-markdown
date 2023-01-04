@@ -19,15 +19,17 @@ module GovukMarkdown
 
     def inject_details
       output.gsub!(build_regexp("details")) do
+        summary, details = *construct_details_from(Regexp.last_match(1))
+
         <<~HTML
           <details class="govuk-details" data-module="govuk-details">
             <summary class="govuk-details__summary">
               <span class="govuk-details__summary-text">
-              #{Regexp.last_match(1).split('.', 2).first}
+              #{summary}
               </span>
             </summary>
             <div class="govuk-details__text">
-              #{Regexp.last_match(1).split('.', 2).last}
+              #{details}
             </div>
           </details>
         HTML
@@ -43,6 +45,20 @@ module GovukMarkdown
       pattern = [Regexp.quote(start_tag), "(.*?)", Regexp.quote(end_tag)].join
 
       Regexp.compile(pattern, Regexp::EXTENDED | Regexp::MULTILINE)
+    end
+
+    def construct_details_from(match_string, partition_characters: %w[? .])
+      summary_text, match, details = match_string.partition(Regexp.union(*partition_characters))
+
+      summary = [summary_text, format_punctuation(match)].compact.join
+
+      [summary, details].compact.map(&:strip)
+    end
+
+    def format_punctuation(match)
+      return if match.include?(".")
+
+      match
     end
   end
 end

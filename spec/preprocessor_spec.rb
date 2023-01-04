@@ -148,6 +148,80 @@ RSpec.describe "GovukMarkdown with textual component extensions" do
       it "renders the details section" do
         expect_equal_ignoring_ws(render(input), expected_output)
       end
+
+      context "and the split is on a question mark" do
+        let(:details_with_question) { "What about this fox and dog? Good question. In the end they became cute friends." }
+
+        let(:input) do
+          <<~MD
+            an unrelated paragraph
+
+            {details}#{details_with_question}{/details}
+
+            an unrelated paragraph
+          MD
+        end
+
+        let(:expected_output) do
+          <<~HTML
+            <p class="govuk-body-m">an unrelated paragraph</p>
+
+            <details class="govuk-details" data-module="govuk-details">
+              <summary class="govuk-details__summary">
+                <span class="govuk-details__summary-text">
+                  What about this fox and dog?
+                </span>
+              </summary>
+              <div class="govuk-details__text">
+                Good question. In the end they became cute friends.
+              </div>
+            </details>
+
+            <p class="govuk-body-m">an unrelated paragraph</p>
+          HTML
+        end
+
+        it "renders the details section" do
+          expect_equal_ignoring_ws(render(input), expected_output)
+        end
+      end
+
+      context "and the text contains a question mark that comes after a fullstop" do
+        let(:details) { "Find out more. Will the fox and the dog remain friends? Or are they just too different?" }
+
+        let(:input) do
+          <<~MD
+            an unrelated paragraph
+
+            {details}#{details}{/details}
+
+            an unrelated paragraph
+          MD
+        end
+
+        let(:expected_output) do
+          <<~HTML
+            <p class="govuk-body-m">an unrelated paragraph</p>
+
+            <details class="govuk-details" data-module="govuk-details">
+              <summary class="govuk-details__summary">
+                <span class="govuk-details__summary-text">
+                  Find out more
+                </span>
+              </summary>
+              <div class="govuk-details__text">
+                Will the fox and the dog remain friends? Or are they just too different?
+              </div>
+            </details>
+
+            <p class="govuk-body-m">an unrelated paragraph</p>
+          HTML
+        end
+
+        it "renders the details section" do
+          expect_equal_ignoring_ws(render(input), expected_output)
+        end
+      end
     end
 
     context "multiple details sections" do
