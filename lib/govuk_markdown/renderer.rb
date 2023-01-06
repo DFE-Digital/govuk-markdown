@@ -81,7 +81,11 @@ module GovukMarkdown
     end
 
     def preprocess(document)
-      Preprocessor.new(document).inject_inset_text
+      Preprocessor
+        .new(document)
+        .inject_inset_text
+        .inject_details
+        .output
     end
   end
 end
