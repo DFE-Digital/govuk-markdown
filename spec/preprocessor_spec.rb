@@ -48,9 +48,7 @@ RSpec.describe "GovukMarkdown with textual component extensions" do
         <<~MD
           an unrelated paragraph
 
-          {inset-text}
-            #{some_lines_of_text}
-          {/inset-text}
+          {inset-text}#{some_lines_of_text}{/inset-text}
 
           an unrelated paragraph
         MD
@@ -61,7 +59,7 @@ RSpec.describe "GovukMarkdown with textual component extensions" do
           <p class="govuk-body-m">an unrelated paragraph</p>
 
           <div class="govuk-inset-text">
-            #{some_lines_of_text}
+            <p class="govuk-body-m">#{some_lines_of_text}</p>
           </div>
 
           <p class="govuk-body-m">an unrelated paragraph</p>
@@ -82,9 +80,7 @@ RSpec.describe "GovukMarkdown with textual component extensions" do
 
           an unrelated paragraph
 
-          {inset-text}
-            #{some_lines_of_text}
-          {/inset-text}
+          {inset-text}#{some_lines_of_text}{/inset-text}
 
           an unrelated paragraph
         MD
@@ -101,7 +97,9 @@ RSpec.describe "GovukMarkdown with textual component extensions" do
           <p class="govuk-body-m">an unrelated paragraph</p>
 
           <div class="govuk-inset-text">
-            #{some_lines_of_text}
+            <p class="govuk-body-m">
+              #{some_lines_of_text}
+            </p>
           </div>
 
           <p class="govuk-body-m">an unrelated paragraph</p>
@@ -115,7 +113,7 @@ RSpec.describe "GovukMarkdown with textual component extensions" do
   end
 
   describe "details" do
-    context "when there is a details section" do
+    context "when there is one details section" do
       let(:input) do
         <<~MD
           an unrelated paragraph
@@ -211,6 +209,55 @@ RSpec.describe "GovukMarkdown with textual component extensions" do
               </summary>
               <div class="govuk-details__text">
                 Will the fox and the dog remain friends? Or are they just too different?
+              </div>
+            </details>
+
+            <p class="govuk-body-m">an unrelated paragraph</p>
+          HTML
+        end
+
+        it "renders the details section" do
+          expect_equal_ignoring_ws(render(input), expected_output)
+        end
+      end
+
+      context "and there are multiple paragraphs inside" do
+        let(:summary_with_multiple_paragraphs) do
+          <<~CONTENT
+            The summary.
+
+            First paragraph
+
+            Second paragraph
+          CONTENT
+        end
+
+        let(:input) do
+          <<~MD
+            an unrelated paragraph
+
+            {details}
+              #{summary_with_multiple_paragraphs}
+            {/details}
+
+            an unrelated paragraph
+          MD
+        end
+
+        let(:expected_output) do
+          <<~HTML
+            <p class="govuk-body-m">an unrelated paragraph</p>
+
+            <details class="govuk-details" data-module="govuk-details">
+              <summary class="govuk-details__summary">
+                <span class="govuk-details__summary-text">
+                  The summary
+                </span>
+              </summary>
+              <div class="govuk-details__text">
+                <p class="govuk-body-m">First paragraph</p>
+
+                <p class="govuk-body-m">Second paragraph</p>
               </div>
             </details>
 
