@@ -1,4 +1,5 @@
 require_relative "./../lib/govuk_markdown"
+require "pry"
 
 def render(content)
   GovukMarkdown.render(content)
