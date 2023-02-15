@@ -1,3 +1,13 @@
+## 2.0.0
+
+* Add test matrix for Ruby versions 2.7.6, 3.0.4 and 3.1.2 
+* Update Publish Gem workflow to run manually
+* Add support for configurable start heading size
+* Add preprocessor for markdown files
+* Add support for inset text component
+* Add support for details component
+* Add pry as developer dependency
+
 ## 1.0.0
 
 * Increase minimum supported Ruby version to >= 2.7.0
