@@ -10,7 +10,7 @@ module GovukMarkdown
       output.gsub!(build_regexp("inset-text")) do
         <<~HTML
           <div class="govuk-inset-text">
-            #{Regexp.last_match(1)}
+            #{nested_markdown(Regexp.last_match(1))}
           </div>
         HTML
       end
@@ -29,7 +29,7 @@ module GovukMarkdown
               </span>
             </summary>
             <div class="govuk-details__text">
-              #{details}
+              #{nested_markdown(details)}
             </div>
           </details>
         HTML
@@ -38,6 +38,13 @@ module GovukMarkdown
     end
 
   private
+
+    # parse as markdown if there are multiple lines of content
+    def nested_markdown(content)
+      return content unless content =~ /\n/
+
+      GovukMarkdown.render(content)
+    end
 
     def build_regexp(tag_name, pre_tag: "{", post_tag: "}", closing: "/")
       start_tag = pre_tag + tag_name + post_tag
