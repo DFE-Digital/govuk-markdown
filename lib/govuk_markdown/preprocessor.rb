@@ -7,7 +7,7 @@ module GovukMarkdown
     end
 
     def inject_inset_text
-      output.gsub!(build_regexp("inset-text")) do
+      @output = output.gsub(build_regexp("inset-text")) do
         <<~HTML
           <div class="govuk-inset-text">
             #{nested_markdown(Regexp.last_match(1))}
@@ -18,7 +18,7 @@ module GovukMarkdown
     end
 
     def inject_details
-      output.gsub!(build_regexp("details")) do
+      @output = output.gsub(build_regexp("details")) do
         summary, details = *construct_details_from(Regexp.last_match(1))
 
         <<~HTML
