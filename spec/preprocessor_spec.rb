@@ -17,7 +17,7 @@ RSpec.describe "GovukMarkdown with textual component extensions" do
   describe "inset text" do
     context "when there is an inline piece of inset text" do
       let(:input) do
-        <<~MD.freeze
+        <<~MD
           an unrelated paragraph
 
           {inset-text}#{a_line_of_text}{/inset-text}
@@ -45,7 +45,7 @@ RSpec.describe "GovukMarkdown with textual component extensions" do
 
     context "when there is a block of inset text" do
       let(:input) do
-        <<~MD.freeze
+        <<~MD
           an unrelated paragraph
 
           {inset-text}#{some_lines_of_text}{/inset-text}
@@ -73,7 +73,7 @@ RSpec.describe "GovukMarkdown with textual component extensions" do
 
     context "when there are multiple blocks of inset text" do
       let(:input) do
-        <<~MD.freeze
+        <<~MD
           an unrelated paragraph
 
           {inset-text}#{a_line_of_text}{/inset-text}
@@ -115,7 +115,7 @@ RSpec.describe "GovukMarkdown with textual component extensions" do
   describe "details" do
     context "when there is one details section" do
       let(:input) do
-        <<~MD.freeze
+        <<~MD
           an unrelated paragraph
 
           {details}#{a_line_of_text}{/details}
@@ -151,7 +151,7 @@ RSpec.describe "GovukMarkdown with textual component extensions" do
         let(:details_with_question) { "What about this fox and dog? Good question. In the end they became cute friends." }
 
         let(:input) do
-          <<~MD.freeze
+          <<~MD
             an unrelated paragraph
 
             {details}#{details_with_question}{/details}
@@ -188,7 +188,7 @@ RSpec.describe "GovukMarkdown with textual component extensions" do
         let(:details) { "Find out more. Will the fox and the dog remain friends? Or are they just too different?" }
 
         let(:input) do
-          <<~MD.freeze
+          <<~MD
             an unrelated paragraph
 
             {details}#{details}{/details}
@@ -233,7 +233,7 @@ RSpec.describe "GovukMarkdown with textual component extensions" do
         end
 
         let(:input) do
-          <<~MD.freeze
+          <<~MD
             an unrelated paragraph
 
             {details}
@@ -273,7 +273,7 @@ RSpec.describe "GovukMarkdown with textual component extensions" do
 
     context "multiple details sections" do
       let(:input) do
-        <<~MD.freeze
+        <<~MD
           an unrelated paragraph
 
           {details}#{a_line_of_text}{/details}
@@ -321,9 +321,32 @@ RSpec.describe "GovukMarkdown with textual component extensions" do
   end
 
   describe "multiple preprocessing steps" do
+    let(:expected_output) do
+      <<~HTML
+        <p class="govuk-body-m">an unrelated paragraph</p>
+
+        <details class="govuk-details" data-module="govuk-details">
+          <summary class="govuk-details__summary">
+            <span class="govuk-details__summary-text">
+              #{output_summary}
+            </span>
+          </summary>
+          <div class="govuk-details__text">
+            #{output_details_text}
+          </div>
+        </details>
+
+        <div class="govuk-inset-text">
+          #{a_line_of_text}
+        </div>
+
+        <p class="govuk-body-m">an unrelated paragraph</p>
+      HTML
+    end
+
     context "inset text and details" do
       let(:input) do
-        <<~MD.freeze
+        <<~MD
           an unrelated paragraph
 
           {details}#{a_line_of_text}{/details}
@@ -334,27 +357,22 @@ RSpec.describe "GovukMarkdown with textual component extensions" do
         MD
       end
 
-      let(:expected_output) do
-        <<~HTML
-          <p class="govuk-body-m">an unrelated paragraph</p>
+      it "renders correctly" do
+        expect_equal_ignoring_ws(render(input), expected_output)
+      end
+    end
 
-          <details class="govuk-details" data-module="govuk-details">
-            <summary class="govuk-details__summary">
-              <span class="govuk-details__summary-text">
-                #{output_summary}
-              </span>
-            </summary>
-            <div class="govuk-details__text">
-              #{output_details_text}
-            </div>
-          </details>
+    context "when the input string is frozen" do
+      let(:input) do
+        <<~MD.freeze
+          an unrelated paragraph
 
-          <div class="govuk-inset-text">
-            #{a_line_of_text}
-          </div>
+          {details}#{a_line_of_text}{/details}
 
-          <p class="govuk-body-m">an unrelated paragraph</p>
-        HTML
+          {inset-text}#{a_line_of_text}{/inset-text}
+
+          an unrelated paragraph
+        MD
       end
 
       it "renders correctly" do
