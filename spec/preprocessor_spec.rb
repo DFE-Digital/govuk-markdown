@@ -321,6 +321,29 @@ RSpec.describe "GovukMarkdown with textual component extensions" do
   end
 
   describe "multiple preprocessing steps" do
+    let(:expected_output) do
+      <<~HTML
+        <p class="govuk-body-m">an unrelated paragraph</p>
+
+        <details class="govuk-details" data-module="govuk-details">
+          <summary class="govuk-details__summary">
+            <span class="govuk-details__summary-text">
+              #{output_summary}
+            </span>
+          </summary>
+          <div class="govuk-details__text">
+            #{output_details_text}
+          </div>
+        </details>
+
+        <div class="govuk-inset-text">
+          #{a_line_of_text}
+        </div>
+
+        <p class="govuk-body-m">an unrelated paragraph</p>
+      HTML
+    end
+
     context "inset text and details" do
       let(:input) do
         <<~MD
@@ -334,27 +357,22 @@ RSpec.describe "GovukMarkdown with textual component extensions" do
         MD
       end
 
-      let(:expected_output) do
-        <<~HTML
-          <p class="govuk-body-m">an unrelated paragraph</p>
+      it "renders correctly" do
+        expect_equal_ignoring_ws(render(input), expected_output)
+      end
+    end
 
-          <details class="govuk-details" data-module="govuk-details">
-            <summary class="govuk-details__summary">
-              <span class="govuk-details__summary-text">
-                #{output_summary}
-              </span>
-            </summary>
-            <div class="govuk-details__text">
-              #{output_details_text}
-            </div>
-          </details>
+    context "when the input string is frozen" do
+      let(:input) do
+        <<~MD.freeze
+          an unrelated paragraph
 
-          <div class="govuk-inset-text">
-            #{a_line_of_text}
-          </div>
+          {details}#{a_line_of_text}{/details}
 
-          <p class="govuk-body-m">an unrelated paragraph</p>
-        HTML
+          {inset-text}#{a_line_of_text}{/inset-text}
+
+          an unrelated paragraph
+        MD
       end
 
       it "renders correctly" do
