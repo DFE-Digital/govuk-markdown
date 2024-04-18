@@ -26,12 +26,20 @@ module GovukMarkdown
       HTML
     end
 
-    def table_cell(content, _alignment)
-      <<~HTML
-        <td class='govuk-table__cell'>
-          #{content}
-        </td>
-      HTML
+    def table_cell(content, _alignment, header)
+      if header
+        <<~HTML
+          <th class='govuk-table__header'>
+            #{content}
+          </th>
+        HTML
+      else
+        <<~HTML
+          <td class='govuk-table__cell'>
+            #{content}
+          </td>
+        HTML
+      end
     end
 
     def header(text, header_level)

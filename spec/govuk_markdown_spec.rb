@@ -15,9 +15,9 @@ RSpec.describe GovukMarkdown do
       <table class='govuk-table'>
         <thead class='govuk-table__head'>
           <tr class='govuk-table__row'>
-            <td class='govuk-table__cell'>First name</td>
-            <td class='govuk-table__cell'>Last name</td>
-            <td class='govuk-table__cell'>DOB</td>
+            <th class='govuk-table__header'>First name</th>
+            <th class='govuk-table__header'>Last name</th>
+            <th class='govuk-table__header'>DOB</th>
           </tr>
         </thead>
         <tbody class='govuk-table__body'>
