@@ -5,3 +5,6 @@ inherit_gem:
 inherit_mode:
   merge:
     - Exclude
+
+Style/EmptyCaseCondition:
+  Enabled: false
