@@ -6,7 +6,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        ruby: ['2.7.6', '3.0.4', '3.1.2']
+        ruby: ['3.1.4', '3.2.3', '3.3.0']
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
