@@ -4,7 +4,7 @@ This Ruby gem converts Markdown into [GOV.UK Frontend](https://github.com/alphag
 
 Don't confuse this gem with [govspeak](https://github.com/alphagov/govspeak), which is a Markdown dialect specifically built for the GOV.UK publishing system (www.gov.uk).
 
-Note that this gem supports [GOV.UK Components](https://github.com/DFE-Digital/govuk-components) version 4.0.0
+Note that this gem supports [GOV.UK Design System](https://design-system.service.gov.uk/) version 5.3.0.
 
 ## Installation
 
@@ -52,9 +52,9 @@ GovukMarkdown.render(markdown, headings_start_with: "l")
 
 ### Adding inset text to your markdown
 
-To add [inset text](https://govuk-components.netlify.app/components/inset-text/) to your markdown document, use the following tags:
+To add [inset text](https://design-system.service.gov.uk/components/inset-text/) to your markdown document, use the following tags:
 
-```markdown
+```
 {inset-text}Text to be inset goes here{/inset-text}
 ```
 
@@ -70,10 +70,10 @@ The renderer also handles multi-line text as well as multiple paragraphs inside 
 
 ### Adding details sections to your markdown
 
-To add the [details component](https://govuk-components.netlify.app/components/details/) to your markdown, use the following tags:
+To add the [details component](https://design-system.service.gov.uk/components/details/) to your markdown, use the following tags:
 
-```markdown
-{details} Find out about the fox and the dog. Whilst the fox is quick and brown, the dog is lazy. {/details}
+```
+{details} Find out about the fox and the dog. Whilst the fox is quick and brown, the dog is lazy.{/details}
 ```
 
 The first sentence is rendered as the details summary text. The remaining text is rendered as the details text. The renderer handles multiple paragraphs for the details text.
