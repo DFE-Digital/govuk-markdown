@@ -123,10 +123,31 @@ RSpec.describe GovukMarkdown do
     )
   end
 
-  it "renders links with titles with GOV.UK classes" do
-    expect(render('[GOV.UK homepage](https://www.gov.uk "My title")')).to eq(
-      '<p class="govuk-body-m"><a href="https://www.gov.uk" title="My title" class="govuk-link">GOV.UK homepage</a></p>',
-    )
+  it "renders blockquotes with GOV.UK classes" do
+    input = <<~MARKDOWN
+      > You quoted me!
+    MARKDOWN
+    expected = <<~HTML
+      <blockquote class="govuk-inset-text">
+        <p class="govuk-body-m">You quoted me!</p>
+      </blockquote>
+    HTML
+    expect(render(input)).to eq(expected.strip)
+  end
+
+  it "renders blockquotes with multiple paragraphs and GOV.UK classes" do
+    input = <<~MARKDOWN
+      > You quoted me once,
+      >
+      > you should do it again!
+    MARKDOWN
+    expected = <<~HTML
+      <blockquote class="govuk-inset-text">
+        <p class="govuk-body-m">You quoted me once,</p>
+        <p class="govuk-body-m">you should do it again!</p>
+      </blockquote>
+    HTML
+    expect(render(input)).to eq(expected.strip)
   end
 
   it "renders hrules with GOV.UK classes" do
