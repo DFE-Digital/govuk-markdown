@@ -129,7 +129,7 @@ RSpec.describe GovukMarkdown do
     MARKDOWN
     expected = <<~HTML
       <blockquote class="govuk-inset-text">
-        <p class="govuk-body-m">You quoted me!</p>
+      <p class="govuk-body-m">You quoted me!</p>
       </blockquote>
     HTML
     expect(render(input)).to eq(expected.strip)
@@ -143,8 +143,8 @@ RSpec.describe GovukMarkdown do
     MARKDOWN
     expected = <<~HTML
       <blockquote class="govuk-inset-text">
-        <p class="govuk-body-m">You quoted me once,</p>
-        <p class="govuk-body-m">you should do it again!</p>
+      <p class="govuk-body-m">You quoted me once,</p>
+      <p class="govuk-body-m">you should do it again!</p>
       </blockquote>
     HTML
     expect(render(input)).to eq(expected.strip)
