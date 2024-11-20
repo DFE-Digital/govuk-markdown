@@ -37,6 +37,14 @@ module GovukMarkdown
       self
     end
 
+    def strip_front_matter(enabled)
+      return self unless enabled
+
+      @output = output.gsub(%r{^---\n.*\n---}m, "")
+
+      self
+    end
+
   private
 
     # parse as markdown if there are multiple lines of content

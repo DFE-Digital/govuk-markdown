@@ -320,6 +320,63 @@ RSpec.describe "GovukMarkdown with textual component extensions" do
     end
   end
 
+  describe "strip front matter" do
+    let(:input) do
+      <<~MD
+        ---
+        title: Hi
+        tags: hello, world
+        ---
+
+        Waffle waffle waffle waffle.
+
+        Waffle waffle waffle waffle.
+      MD
+    end
+
+    let(:actual_output) { render(input, { strip_front_matter: }) }
+
+    context "when front matter is stripped" do
+      let(:strip_front_matter) { true }
+
+      let(:expected_output) do
+        <<~EXPECTED.strip
+          <p class="govuk-body-m">Waffle waffle waffle waffle.</p>
+          <p class="govuk-body-m">Waffle waffle waffle waffle.</p>
+        EXPECTED
+      end
+
+      it "renders no front matter" do
+        expect(actual_output).not_to include("title")
+      end
+
+      it "renders without front matter" do
+        expect(actual_output).to eql(expected_output)
+      end
+    end
+
+    context "when front matter is not stripped" do
+      let(:strip_front_matter) { false }
+
+      let(:expected_output) do
+        <<~EXPECTED.strip
+          <p class="govuk-body-m">Waffle waffle waffle waffle.</p>
+          <p class="govuk-body-m">Waffle waffle waffle waffle.</p>
+        EXPECTED
+      end
+
+      it "renders the front matter" do
+        expect(actual_output).to include(%(<hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible">))
+        expect(actual_output).to include(%(<p class="govuk-body-m">title: Hi</p>))
+        expect(actual_output).to include(%(<h2 id="tags-hello-world" class="govuk-heading-l">tags: hello, world</h2>))
+      end
+
+      it "renders the content too" do
+        expect(actual_output).to include(expected_output)
+      end
+    end
+  end
+
   describe "multiple preprocessing steps" do
     let(:expected_output) do
       <<~HTML
