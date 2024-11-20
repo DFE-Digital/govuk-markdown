@@ -2,6 +2,8 @@ module GovukMarkdown
   class Renderer < ::Redcarpet::Render::HTML
     def initialize(govuk_options, options = {})
       @headings_start_with = govuk_options[:headings_start_with]
+      @strip_front_matter = govuk_options[:strip_front_matter]
+
       super options
     end
 
@@ -93,6 +95,7 @@ module GovukMarkdown
         .new(document)
         .inject_inset_text
         .inject_details
+        .strip_front_matter(@strip_front_matter)
         .output
     end
   end
