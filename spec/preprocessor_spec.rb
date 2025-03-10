@@ -306,7 +306,7 @@ RSpec.describe "GovukMarkdown with textual component extensions" do
               </span>
             </summary>
             <div class="govuk-details__text">
-              Don't you just love more details.
+              Don&rsquo;t you just love more details.
             </div>
           </details>
 
