@@ -92,6 +92,14 @@ module GovukMarkdown
       HTML
     end
 
+    def block_quote(content)
+      <<~HTML
+        <blockquote class="govuk-inset-text">
+        #{content.strip}
+        </blockquote>
+      HTML
+    end
+
     def preprocess(document)
       Preprocessor
         .new(document)
