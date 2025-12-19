@@ -4,6 +4,7 @@ require "redcarpet"
 require_relative "./govuk_markdown/version"
 require_relative "./govuk_markdown/preprocessor"
 require_relative "./govuk_markdown/renderer"
+require_relative "./govuk_markdown/renderer/mixin"
 
 module GovukMarkdown
   def self.render(markdown, govuk_options = {})
