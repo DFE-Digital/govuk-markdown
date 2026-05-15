@@ -1,6 +1,7 @@
 require "spec_helper"
 
 RSpec.describe "GovukMarkdown with textual component extensions" do
+  let(:a_title) { "My title" }
   let(:a_line_of_text) { "My custom text. Some extra details. And a few more." }
   let(:output_summary) { "My custom text" }
   let(:output_details_text) { "Some extra details. And a few more." }
@@ -315,6 +316,55 @@ RSpec.describe "GovukMarkdown with textual component extensions" do
       end
 
       it "renders multiple details sections" do
+        expect_equal_ignoring_ws(render(input), expected_output)
+      end
+    end
+  end
+
+  describe "panel" do
+    context "when there is one unpunctuated input given" do
+      let(:input) do
+        <<~MD
+          {panel}#{a_title}{/panel}
+        MD
+      end
+
+      let(:expected_output) do
+        <<~HTML
+          <div class="govuk-panel govuk-panel--confirmation">
+            <h1 class="govuk-panel__title">
+              #{a_title}
+            </h1>
+          </div>
+        HTML
+      end
+
+      it "renders a panel with only a title" do
+        expect_equal_ignoring_ws(render(input), expected_output)
+      end
+    end
+
+    context "when there is punctutated input" do
+      let(:input) do
+        <<~MD
+          {panel}#{a_line_of_text}{/panel}
+        MD
+      end
+
+      let(:expected_output) do
+        <<~HTML
+          <div class="govuk-panel govuk-panel--confirmation">
+            <h1 class="govuk-panel__title">
+              #{output_summary}
+            </h1>
+            <div class="govuk-panel__body">
+              #{output_details_text}
+            </div>
+          </div>
+        HTML
+      end
+
+      it "renders a title and details" do
         expect_equal_ignoring_ws(render(input), expected_output)
       end
     end

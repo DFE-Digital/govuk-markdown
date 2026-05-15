@@ -90,6 +90,7 @@ module GovukMarkdown
         .new(document)
         .inject_inset_text
         .inject_details
+        .inject_panel
         .strip_front_matter(@strip_front_matter)
         .output
     end

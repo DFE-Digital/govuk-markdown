@@ -1,4 +1,4 @@
-# A h1 title header
+# An H1 title header
 
 ## Links
 
@@ -41,3 +41,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam sodales rhoncus 
 ###### A h6 heading
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam sodales rhoncus est sed sollicitudin. Sed feugiat ex sit amet purus malesuada mattis. Nullam non ultrices risus. Ut posuere gravida eros a pulvinar. Curabitur mollis hendrerit nunc. Suspendisse potenti. Nam commodo, ligula sit amet mollis varius, libero velit consectetur leo, sed efficitur lectus purus in nulla. Integer odio eros, iaculis ut sodales condimentum, fermentum eget leo. Nam et pharetra libero. Ut libero enim, cursus non tellus ut, interdum scelerisque enim. Suspendisse lorem nisi, condimentum sit amet mi quis, rutrum rhoncus sem.
+
+## Panel
+
+{panel} This is a summary. And here are some details! {/panel}
