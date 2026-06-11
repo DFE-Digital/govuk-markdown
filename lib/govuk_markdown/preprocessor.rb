@@ -37,6 +37,22 @@ module GovukMarkdown
       self
     end
 
+    def inject_panel
+      @output = output.gsub(build_regexp("panel")) do
+        summary, details = *construct_details_from(Regexp.last_match(1))
+
+        html = %(<div class="govuk-panel govuk-panel--confirmation">)
+        html << %(<h1 class="govuk-panel__title">#{summary}</h1>)
+
+        if details.present?
+          html << %(<div class="govuk-panel__body">#{nested_markdown(details)}</div>)
+        end
+
+        html << %(</div>)
+      end
+      self
+    end
+
     def strip_front_matter(enabled)
       return self unless enabled
 
