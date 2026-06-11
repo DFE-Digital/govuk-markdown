@@ -6,6 +6,10 @@ RSpec.describe "GovukMarkdown with textual component extensions" do
   let(:output_summary) { "My custom text" }
   let(:output_details_text) { "Some extra details. And a few more." }
   let(:additional_details_text) { "Additional details. Don't you just love more details." }
+  let(:a_line_of_text_with_multiple_question_marks) { "What about this fox and dog? Good question? In the end they became cute friends." }
+  let(:output_summary_with_question_mark) { "What about this fox and dog?" }
+  let(:output_details_text_with_multiple_question_marks) { "Good question? In the end they became cute friends." }
+
   let(:some_lines_of_text) do
     <<~TEXT
       The quick
@@ -345,11 +349,11 @@ RSpec.describe "GovukMarkdown with textual component extensions" do
     end
 
     context "when there is punctutated input" do
-      let(:input) do
-        <<~MD
-          {panel}#{a_line_of_text}{/panel}
-        MD
-      end
+        let(:input) do
+          <<~MD
+            {panel}#{a_line_of_text}{/panel}
+          MD
+        end
 
       let(:expected_output) do
         <<~HTML
@@ -359,6 +363,31 @@ RSpec.describe "GovukMarkdown with textual component extensions" do
             </h1>
             <div class="govuk-panel__body">
               #{output_details_text}
+            </div>
+          </div>
+        HTML
+      end
+
+      it "renders a title and details" do
+        expect_equal_ignoring_ws(render(input), expected_output)
+      end
+    end
+
+    context "when there are multiple question marks" do
+      let(:input) do
+        <<~MD
+          {panel}#{a_line_of_text_with_multiple_question_marks}{/panel}
+        MD
+      end
+
+      let(:expected_output) do
+        <<~HTML
+          <div class="govuk-panel govuk-panel--confirmation">
+            <h1 class="govuk-panel__title">
+              #{output_summary_with_question_mark}
+            </h1>
+            <div class="govuk-panel__body">
+              #{output_details_text_with_multiple_question_marks}
             </div>
           </div>
         HTML
