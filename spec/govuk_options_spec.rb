@@ -1,11 +1,8 @@
 require "spec_helper"
 
-RSpec.describe GovukMarkdown do
+describe "govuk_options" do
+  subject { GovukMarkdown }
   describe "#render" do
-    before do
-      subject { GovukMarkdown }
-    end
-
     describe "#headings_start_with" do
       context "when headings_start_with l" do
         let(:heading_size) { "l" }
